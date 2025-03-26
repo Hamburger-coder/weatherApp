@@ -3,8 +3,55 @@ body {
   margin: 0;
   height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+h1 {
+  font-size: 8vh;
+}
+
+/* Basic button styles */
+
+#location-btn {
+
+  background-color: #007BFF; /* Bootstrap primary color */
+
+  color: white;
+
+  border: none;
+
+  border-radius: 5px;
+
+  padding: 10px 20px;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  position: relative; /* For positioning the spinner */
+
+  transition: background-color 0.3s ease;
+
+}
+
+
+/* Hover effect */
+
+#location-btn:hover {
+
+  background-color: #0056b3; /* Darker shade for hover */
+
+  transform: scale(1.05); /* Slightly increase size on hover */
+
+}
+#location-btn:active {
+
+  background-color: #004494; /* Even darker shade for active state */ 
+
+  transform: scale(0.95); /* Slightly decrease size on click */
+}
 /* From Uiverse.io by zanina-yassine */ 
 .card {
   width: 350px;
