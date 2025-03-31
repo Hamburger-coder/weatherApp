@@ -1,11 +1,12 @@
 // index.js
+import { format } from 'date-fns';
 import "./styles.css";
 
 // variables
 const tempScale = document.getElementById("unit-btn");
 
 const locationBtn = document.getElementById('location-btn');
-
+let weatherCard = document.querySelector('.card');
 
 console.log("Start of script!")
 
@@ -59,8 +60,44 @@ function getUsefulWeatherData(data) {
 async function main(location) {
     try {
         const weatherData = await fetchData(location);
-        getUsefulWeatherData(weatherData);
+        displayData(weatherData);
     } catch (error) {
         console.error("Error fetching or processing data:", error);
     }
 }
+
+function displayData(weatherData) {
+    console.log("Displaying data...");
+    const data = getUsefulWeatherData(weatherData);
+
+    // Format the date using date-fns
+    const formattedDate = format(new Date(data.date), 'MMMM dd, yyyy');
+    weatherCard.innerHTML = `
+        <h2 class="card-title">Today:</h2>
+      
+        <div class="card-grid">
+          <!-- Weather icon in the upper right -->
+          <div class="weather-icon">
+            <img src="./svg-files-Weather/${data.icon}.svg" width="100px" alt="Weather Icon">
+          </div>
+          
+          <!-- Location and date information -->
+          <div class="card-info">
+            <div class="location">${data.location}</div>
+            <div class="date">${formattedDate}</div>
+          </div>
+          <div class="description">${data.conditions}</div>
+          <div class="wind">Wind: 💨 ${data.windSpeed} mph</div>
+          <!-- Temperature display -->
+          <div class="temp">${data.temperature}°</div>
+          <div class="high-low-temp">
+            <div class="high">High: ${data.highTemp}°</div>
+            <div class="low">Low: ${data.lowTemp}°</div>
+          </div>
+          <div class="humidity">Humidity: 💧 ${data.humidity}%</div>
+          <!-- Temperature scale toggle -->
+          <div class="temp-scale">
+            <span id="unit-btn">Fahrenheit</span>
+          </div>
+        </div>`;
+ }
