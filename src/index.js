@@ -41,16 +41,6 @@ function getUsefulWeatherData(data) {
         const lowTemp = weatherData.tempmin;
         const conditions = weatherData.conditions;
         const icon = weatherData.icon;
-        console.log(`Icon: ${icon}`);
-        console.log(`Conditions: ${conditions}`);
-        console.log(`High Temperature: ${highTemp}`);
-        console.log(`Low Temperature: ${lowTemp}`);
-        console.log(`Location: ${location}`);
-        console.log(`Date: ${date}`);
-        console.log(`Description: ${description}`);
-        console.log(`Temperature: ${temperature}`);
-        console.log(`Humidity: ${humidity}%`);
-        console.log(`Wind Speed: ${windSpeed} km/h`);
         return { temperature, humidity, windSpeed, date, location, highTemp, lowTemp, conditions, icon };
     } else {
         console.error("No weather data available for today.");
