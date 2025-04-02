@@ -64,6 +64,11 @@ module.exports = {
       template: "./src/template.html",
       filename: 'index.html'
     }),
+    new CopyWebpackPlugin({
+        patterns: [
+            { from: "src/svg-files-Weather", to: "svg-files-Weather" }, // Copies SVGs to dist/
+        ],
+    }),
   ],
   devServer: {
     static: [
