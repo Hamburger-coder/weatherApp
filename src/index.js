@@ -1,9 +1,11 @@
 // index.js
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import "./styles.css";
 
 // variables
 const tempScale = document.getElementById("unit-btn");
+// loading state element
+const loader = document.querySelector(".spinner");
 
 const locationBtn = document.getElementById('location-btn');
 let weatherCard = document.querySelector('.card');
@@ -16,10 +18,17 @@ locationBtn.addEventListener('click', () => {
     main(location);
 });
 
+
+
+
 // Function to fetch data from the visual crossings api
 async function fetchData(location) {
     console.log("Fetching data...");
+    console.log("This is before fetching")
+    loader.classList.remove('no-show');
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=H8D4BTVA9F9WEDCQSV5C235VX`, {mode: 'cors'});
+    loader.classList.add('no-show');
+    console.log("This is after fetching")
     const data = await response.json();
     let description = data.description;
     console.log(data);
@@ -61,7 +70,7 @@ function displayData(weatherData) {
     const data = getUsefulWeatherData(weatherData);
 
     // Format the date using date-fns
-    const formattedDate = format(new Date(data.date), 'MMMM dd, yyyy');
+    const formattedDate = format(new Date(parseISO(data.date)), 'MMMM dd, yyyy');
     weatherCard.innerHTML = `
         <h2 class="card-title">Today:</h2>
       
@@ -79,15 +88,11 @@ function displayData(weatherData) {
           <div class="description">${data.conditions}</div>
           <div class="wind">Wind: 💨 ${data.windSpeed} mph</div>
           <!-- Temperature display -->
-          <div class="temp">${data.temperature}°</div>
+          <div class="temp">${data.temperature}</div>
           <div class="high-low-temp">
             <div class="high">High: ${data.highTemp}°</div>
             <div class="low">Low: ${data.lowTemp}°</div>
           </div>
           <div class="humidity">Humidity: 💧 ${data.humidity}%</div>
-          <!-- Temperature scale toggle -->
-          <div class="temp-scale">
-            <span id="unit-btn">Fahrenheit</span>
-          </div>
         </div>`;
  }

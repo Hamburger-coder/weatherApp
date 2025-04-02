@@ -26,6 +26,7 @@
     "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
+    "convert-units": "^2.3.4",
     "date-fns": "^4.1.0"
   }
 }
